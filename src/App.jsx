@@ -3,7 +3,7 @@ import React,{useState} from 'react';
 import UserForm from './components/UserForm';
 import Admin from './components/Admin';
 import axios from 'axios';
-var url = "http://localhost:5000/";
+var url = "https://e699.vercel.app/";
 
 function App() {
   const [admin, setAdmin] = useState(false);

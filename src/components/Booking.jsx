@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import "./Booking.css";
 import axios from "axios";
-var url = "http://localhost:5000/";
+var url = "https://e699.vercel.app/";
 function Booking(props) {
     const [room, setRoom] = useState(props.booking.room);
     const [roomNumber, setRoomNumber] = useState(props.booking.roomNumber);
