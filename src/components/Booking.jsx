@@ -6,11 +6,11 @@ function Booking(props) {
     const [room, setRoom] = useState(props.booking.room);
     const [roomNumber, setRoomNumber] = useState(props.booking.roomNumber);
     const [email, setEmail] = useState(props.booking.email);
-    const [price, setPrice] = useState(props.booking.price);
+    const price= props.booking.price;
     const [checkInDate, setCheckInDate] = useState(props.booking.checkInDate);
     const [checkOutDate, setCheckOutDate] = useState(props.booking.checkOutDate);
-    const [id, setId] = useState(props.booking._id);
-    const [state, setState] = useState(false);
+    const id = props.booking._id;
+
 
     const updateBooking = async () => {
         const d = {
