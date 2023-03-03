@@ -1,6 +1,8 @@
 import React,{useState} from "react";
 import "./Booking.css";
 import axios from "axios";
+import SyncLoader from "react-spinners/SyncLoader";
+import { ToastContainer, toast } from "react-toastify";
 var url = "https://e699.vercel.app/";
 function Booking(props) {
     const [room, setRoom] = useState(props.booking.room);
@@ -9,7 +11,18 @@ function Booking(props) {
     const price= props.booking.price;
     const [checkInDate, setCheckInDate] = useState(props.booking.checkInDate);
     const [checkOutDate, setCheckOutDate] = useState(props.booking.checkOutDate);
+    const [loading, setLoading] = useState(false); 
     const id = props.booking._id;
+
+
+    const success = (msg) => {
+        toast.success(msg);
+      };
+    
+      const err = (msg) => {
+        toast.error(msg);
+      };
+    
 
 
     const updateBooking = async () => {
@@ -22,32 +35,53 @@ function Booking(props) {
             end:checkOutDate,
             id
         }
-
+        setLoading(true);
         try {
             const { data } = await axios.post(
                 `${url}api/v1/updatebooking`,
                 d
             );
-            console.log(data);
+
+            if (data.error == 201) {
+                success(data.message);
+
+            }
+            else{
+                err("Something went wrong");
+            }
+
         } catch (error) {
-            console.log(error);
+            err("Something went wrong")
         }
+    setLoading(false);
     }
 
     const deleteBooking = async () => {
         const d = {
             id
         }
+        setLoading(true);
         try {
             const { data } = await axios.post(
                 `${url}api/v1/deletebooking`,
                 d
             );
-            console.log(data);
+            if (data.error == 201) {
+                success(data.message);
+                props.purple("Admin Page->");
+
+            }
+            else{
+                err("Something went wrong");
+            }
+
         } catch (error) {
-            console.log(error);
+            err("Something went wrong")
+            
         }
-        props.purple("<-Admin Page");
+        setLoading(false);
+        
+
     }
 
 
@@ -57,7 +91,9 @@ function Booking(props) {
 
   return (
     <div >
-      <div className="booking">
+          <div className="booking">
+              <div className="poop"><SyncLoader color="white" loading={loading} margin={5} /></div>
+              <ToastContainer />
         <div>Booking Id: {props.booking._id} </div>
         <div>Room Type: <input type="text" value={room} onChange={(e)=>{setRoom(e.target.value)}} />  </div>
         <div>Room Number: <input type="text" value={roomNumber} onChange={(e)=>{setRoomNumber(e.target.value)}} />  </div>

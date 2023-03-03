@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import "./UserForm.css";
 import axios from "axios";
 import SyncLoader from "react-spinners/SyncLoader";
+import { ToastContainer, toast } from "react-toastify";
 var url = "https://e699.vercel.app/";
 const  UserForm=()=> {
 
@@ -12,13 +13,16 @@ const  UserForm=()=> {
   const [endDate, setEndDate] = useState("");
   const [cost,setCost] = useState(0);
   const [loading, setLoading] = useState(false); 
-  const getPrice = () => {
-    let d = new Date(startDate);
-    let e = new Date(endDate);
-    let diff = e.getTime() - d.getTime();
-    let hours = diff / (1000 * 3600);
-    setPrice(hours * cost);
-}
+
+  const success = (msg) => {
+    toast.success(msg);
+  };
+
+  const err = (msg) => {
+    toast.error(msg);
+  };
+
+
 
 
 
@@ -46,9 +50,15 @@ const  UserForm=()=> {
         `${url}api/v1/booking`,
         d
       );
-      console.log(data);
+      if (data.error == 201) {
+        success(data.message);
+      }
+      else {
+        err(data.message);
+      }
+
     } catch (error) {
-      console.log(error);
+      err("Something went wrong");
     }
     setPrice("See Estimate");
     setStartDate("");
@@ -56,10 +66,23 @@ const  UserForm=()=> {
     setCost(0);
     setLoading(false);
   };
+
+
+
+  const getPrice = () => {
+    console.log("hello");
+    let d = new Date(startDate);
+    let e = new Date(endDate);
+    let diff = e.getTime() - d.getTime();
+    let hours = diff / (1000 * 3600);
+    setPrice(hours * cost);
+    return;
+}
   return (
     <div>
       <form className="Form" onSubmit={handleSubmit}>
-      <div className="poop"><SyncLoader color="black" loading={loading} margin={5} /></div>
+        <div className="poop"><SyncLoader color="black" loading={loading} margin={5} /></div>
+        <ToastContainer />
         <div className="Email col">
           <label htmlFor="email">Email</label>
           <input type="email" name="email" id="email" required/>
@@ -100,7 +123,7 @@ const  UserForm=()=> {
             </button>
           </div>
           <div className="col">
-            <button id="estimate" onClick={getPrice}>{price}</button>
+            <button  type="button" id="estimate" onClick={getPrice}>{price}</button>
 
           </div>
         </div>
