@@ -1,11 +1,14 @@
 .Form{
-    border: 2px solid black;
+
     padding: 2rem;
     display: flex;
     flex-direction: column;
-    background: rgba(0, 0, 0, 0.4);
-    /* background-color: #00539CFF; */
-    color: aliceblue;
+    background-color: white;
+    color: black;
+    font: 1.3rem Inconsolata,monospace;
+    text-shadow: 0 0 7px #111;
+    border-radius: 0.5rem;
+    
 }
 
 div{
@@ -14,14 +17,14 @@ div{
 
 .Date, .Time, .Rooms, .Email{
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
+    
 }
 
 
 .Bottom{
     display: flex;
-    justify-content: space-between;
+
     flex-wrap: wrap;
 }
 
@@ -37,16 +40,20 @@ div{
     border-radius: 0.2rem;
     font-size: large;
     font-weight: 400;
-    background: rgba(0, 0, 0, 0.9);
-    color: aliceblue;
+    background-color: black;
+    color: #f5f4f6;
+    font: 1.3rem Inconsolata,monospace;
+    text-shadow: 0 0 7px #f5f4f6
 }
 
 #room,#roomNumber,#price{
     width: 10rem;
     height: 2.5rem;
     border-radius: 0.2rem;
-    background: rgba(0, 0, 0, 0.9);
-    color: aliceblue;
+    background-color: black;
+    color: #f5f4f6;
+    font: 1.3rem Inconsolata,monospace;
+    text-shadow: 0 0 7px #f5f4f6
 }
 
 #end, #start, #starttime, #endtime{
@@ -54,8 +61,10 @@ div{
     width: 10rem;
     height: 2.5rem;
     border-radius: 0.2rem;
-    background: rgba(0, 0, 0, 0.9);
-    color: aliceblue;
+    background-color: olive;
+    color: #f5f4f6;
+    font: 1.3rem Inconsolata,monospace;
+    text-shadow: 0 0 7px #f5f4f6
 }
 
 #book{
@@ -64,17 +73,24 @@ div{
     border-radius: 0.2rem;
     font-weight: bold;
     font-size: 1.2rem;
-    background: rgba(0, 0, 0, 0.9);
-    color: aliceblue;
+    background-color: black;
+    color: #f5f4f6;
+    font: 1.3rem Inconsolata,monospace;
+    text-shadow: 0 0 7px #f5f4f6
 }
 
 #book:hover{
-    background: rgba(0, 0, 0, 1);
+    background-color: black;
     color: yellow;
+    font: 1.3rem Inconsolata,monospace;
+    text-shadow: 0 0 7px #f5f4f6
 }
 
 input{
-    background: rgba(0, 0, 0, 0.9);
+    background-color: black;
+    color: #f5f4f6;
+    font: 1.3rem Inconsolata,monospace;
+    text-shadow: 0 0 7px #f5f4f6
 
 }
 
@@ -84,6 +100,8 @@ input{
     border-radius: 0.2rem;
     font-weight: bold;
     font-size: 1.2rem;
-    background: rgba(0, 0, 0, 0.9);
-    color: aliceblue;
+    background-color: black;
+    color: #f5f4f6;
+    font: 1.3rem Inconsolata,monospace;
+    text-shadow: 0 0 7px #f5f4f6
 }

@@ -9,31 +9,18 @@ const  UserForm=()=> {
   let [price, setPrice] = useState("See Estimate");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [cost,setCost] = useState(0);
+
+  const getPrice = () => {
+    let d = new Date(startDate);
+    let e = new Date(endDate);
+    let diff = e.getTime() - d.getTime();
+    let hours = diff / (1000 * 3600);
+    setPrice(hours * cost);
+}
 
 
 
-
-  const updatePrice = async(e) => {
-
-    const room = e.target.value;
-    if (room === "A") {
-       setPrice(100);
-    } else if (room === "B") {
-       setPrice(80);
-    } else if (room === "C") {
-      setPrice(50);
-    }
-
-    if (e.target.name === "start") {
-      setStartDate(e.target.value);
-
-    }
-
-    if (e.target.name === "end") {
-      setEndDate(e.target.value);
-    }
-
-  };
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -74,7 +61,7 @@ const  UserForm=()=> {
         <div className="Rooms">
           <div className="col">
             <label htmlFor="room">Select Room Type:</label>
-            <select id="room" name="room" onChange={updatePrice}>
+            <select id="room" name="room" >
               <option value="A" >Type A</option>
               <option value="B">Type B</option>
               <option value="C">Type C</option>
@@ -86,17 +73,17 @@ const  UserForm=()=> {
           </div>
           <div className="col">
             <label htmlFor="price">Room Price(per hour):</label>
-            <input type="text" name="price" id="price"/>
+            <input type="text" name="price" id="price" onChange={(e)=>setCost(e.target.value)}/>
           </div>
         </div>
         <div className="Date">
           <div className="col">
             <label htmlFor="start">Start Date</label>
-            <input type="datetime-local" name="start" id="start" onChange={updatePrice} />
+            <input type="datetime-local" name="start" id="start" onChange={(e)=>setStartDate(e.target.value)} />
           </div>
           <div className="col">
             <label htmlFor="end">End Date</label>
-            <input type="datetime-local" name="end" id="end" onChange={updatePrice}/>
+            <input type="datetime-local" name="end" id="end" onChange={(e)=>setEndDate(e.target.value)}/>
           </div>
         </div>
         <div className="Bottom">
@@ -105,8 +92,8 @@ const  UserForm=()=> {
               Book Now
             </button>
           </div>
-          <div className="">
-            <button id="estimate">{price}</button>
+          <div className="col">
+            <button id="estimate" onClick={getPrice}>{price}</button>
 
           </div>
         </div>
