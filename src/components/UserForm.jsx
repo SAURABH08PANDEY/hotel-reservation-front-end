@@ -1,6 +1,7 @@
 import React,{useState} from "react";
 import "./UserForm.css";
 import axios from "axios";
+import SyncLoader from "react-spinners/SyncLoader";
 var url = "https://e699.vercel.app/";
 const  UserForm=()=> {
 
@@ -10,7 +11,7 @@ const  UserForm=()=> {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [cost,setCost] = useState(0);
-
+  const [loading, setLoading] = useState(false); 
   const getPrice = () => {
     let d = new Date(startDate);
     let e = new Date(endDate);
@@ -39,7 +40,7 @@ const  UserForm=()=> {
       price
     };
     console.log(d);
-
+    setLoading(true);
     try {
       const { data } = await axios.post(
         `${url}api/v1/booking`,
@@ -49,41 +50,47 @@ const  UserForm=()=> {
     } catch (error) {
       console.log(error);
     }
+    setPrice("See Estimate");
+    setStartDate("");
+    setEndDate("");
+    setCost(0);
+    setLoading(false);
   };
   return (
     <div>
       <form className="Form" onSubmit={handleSubmit}>
+      <div className="poop"><SyncLoader color="black" loading={loading} margin={5} /></div>
         <div className="Email col">
           <label htmlFor="email">Email</label>
-          <input type="email" name="email" id="email" />
+          <input type="email" name="email" id="email" required/>
         </div>
 
         <div className="Rooms">
           <div className="col">
             <label htmlFor="room">Select Room Type:</label>
-            <select id="room" name="room" >
-              <option value="A" >Type A</option>
+            <select id="room" name="room" required>
+              <option value="A">Type A</option>
               <option value="B">Type B</option>
               <option value="C">Type C</option>
             </select>
           </div>
           <div className="col">
             <label htmlFor="roomNumber">Type Room Number:</label>
-            <input type="text" name="roomNumber" id="roomNumber" />
+            <input type="text" name="roomNumber" id="roomNumber" required/>
           </div>
           <div className="col">
             <label htmlFor="price">Room Price(per hour):</label>
-            <input type="text" name="price" id="price" onChange={(e)=>setCost(e.target.value)}/>
+            <input type="text" name="price" id="price" onChange={(e)=>setCost(e.target.value)} required/>
           </div>
         </div>
         <div className="Date">
           <div className="col">
             <label htmlFor="start">Start Date</label>
-            <input type="datetime-local" name="start" id="start" onChange={(e)=>setStartDate(e.target.value)} />
+            <input type="datetime-local" name="start" id="start" onChange={(e)=>setStartDate(e.target.value)} required />
           </div>
           <div className="col">
             <label htmlFor="end">End Date</label>
-            <input type="datetime-local" name="end" id="end" onChange={(e)=>setEndDate(e.target.value)}/>
+            <input type="datetime-local" name="end" id="end" onChange={(e)=>setEndDate(e.target.value)} required/>
           </div>
         </div>
         <div className="Bottom">
